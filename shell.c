@@ -31,7 +31,7 @@ int num_of_parse(char **parse)
 //ham xoa
 //mac dinh la xoa whitespace o dau va cuoi chuoi nhu " \n\t\r\a"
 //neu co gan c vao thi xoa ki tu do o CUOI CHUOI (viet chu yeu dung de xoa ki tu & cuoi cau trong chuoi)
-void delete_white_space_or_character(char *str, char c)
+void format_command(char *str, char c)
 {
 
     int i;
@@ -74,7 +74,7 @@ bool is_ampersand(char **parse)
         if (tmp == '&')
         {
             res = true;
-            delete_white_space_or_character(parse[n - 1], tmp);
+            format_command(parse[n - 1], tmp);
         }
     }
 
@@ -158,11 +158,11 @@ char **parsePipe(char *line)
     int pos = 0;
 
     pipe = strtok(line, pipeRedirect);
-    delete_white_space_or_character(pipe, '\0');
+    format_command(pipe, '\0');
     pipeArr[0] = pipe;
 
     pipe = strtok(NULL, "\n");
-    delete_white_space_or_character(pipe, '\0');
+    format_command(pipe, '\0');
     pipeArr[1] = pipe;
 
     pipeArr[2] = NULL;
@@ -386,7 +386,7 @@ void shell_loop()
         inputLine = take_input();
 
         //check input (check nhung truong hop NULL, exit, !!)
-        delete_white_space_or_character(inputLine, '\0');
+        format_command(inputLine, '\0');
 
         // neu nhap cau rong
         if (inputLine[0] == (char)'\0')
